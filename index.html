@@ -8,338 +8,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#13223d;          /* primary deep navy */
-    --ink-2:#0b1525;        /* darkest navy */
-    --ink-soft:#26385a;     /* lighter navy for lines */
-    --paper:#f6f2e9;        /* warm ivory */
-    --paper-2:#fbf9f3;      /* near-white */
-    --brass:#9a7b4f;        /* muted brass accent */
-    --brass-light:#c6a878;  /* light brass */
-    --ink-text:#1c2533;
-    --muted:#6a7180;
-    --line:#d9d2c4;
-    --radius:0px;
-    --maxw:1180px;
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink-text);
-    font-family:"Inter","Noto Sans KR",sans-serif;
-    font-weight:400;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    font-feature-settings:"kern" 1;
-  }
-
-  /* ---------- Language toggle visibility ---------- */
-  .lang-ko .en{display:none !important;}
-  .lang-en .ko{display:none !important;}
-
-  /* ---------- Typography ---------- */
-  h1,h2,h3,h4{margin:0;font-weight:500;line-height:1.2;color:var(--ink);}
-  .serif{font-family:"Cormorant Garamond","Noto Serif KR",serif;}
-  .lang-ko h1,.lang-ko h2,.lang-ko h3{font-family:"Noto Serif KR",serif;}
-  .lang-en h1,.lang-en h2,.lang-en h3{font-family:"Cormorant Garamond",serif;}
-
-  .eyebrow{
-    font-family:"Inter",sans-serif;
-    font-size:.72rem;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    color:var(--brass);
-    font-weight:600;
-    margin:0 0 1.1rem;
-    display:block;
-  }
-  .section-title{
-    font-size:clamp(1.9rem,3.6vw,2.9rem);
-    font-weight:500;
-    letter-spacing:.01em;
-    color:var(--ink);
-  }
-  .lang-en .section-title{font-weight:600;letter-spacing:0;}
-  .lead{
-    font-size:1.06rem;
-    color:#39424f;
-    max-width:54ch;
-    line-height:1.75;
-  }
-
-  a{color:inherit;}
-
-  /* ---------- Layout ---------- */
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
-  section{padding:clamp(64px,9vw,120px) 0;}
-  .band-ink{background:var(--ink);color:#e9e6dd;}
-  .band-ink .section-title,.band-ink h3,.band-ink h4{color:#fff;}
-  .band-ink .lead{color:#c4ccd8;}
-  .band-paper2{background:var(--paper-2);}
-
-  .section-head{margin-bottom:clamp(40px,6vw,68px);max-width:780px;}
-  .divider{width:46px;height:2px;background:var(--brass);margin-bottom:1.6rem;}
-
-  /* ---------- Top bar ---------- */
-  header.topbar{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    background:rgba(246,242,233,.86);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-    transition:background .3s,border-color .3s;
-  }
-  .topbar.scrolled{background:rgba(11,21,37,.92);border-color:rgba(255,255,255,.08);}
-  .topbar.scrolled .logo-mark,.topbar.scrolled .nav-links a{color:#f3efe6;}
-  .topbar.scrolled .logo-sub{color:var(--brass-light);}
-  .topbar.scrolled .lang-btn{color:#cdd3dd;border-color:rgba(255,255,255,.22);}
-  .topbar.scrolled .lang-btn.active{background:var(--brass);color:#fff;border-color:var(--brass);}
-  .topbar-inner{
-    max-width:var(--maxw);margin:0 auto;padding:14px 28px;
-    display:flex;align-items:center;justify-content:space-between;gap:24px;
-  }
-  .logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
-  .logo-mark{
-    font-family:"Cormorant Garamond",serif;
-    font-size:1.34rem;font-weight:600;letter-spacing:.16em;color:var(--ink);
-    transition:color .3s;
-  }
-  .logo-sub{
-    font-family:"Inter",sans-serif;font-size:.56rem;letter-spacing:.42em;
-    text-transform:uppercase;color:var(--brass);margin-top:5px;transition:color .3s;
-  }
-  .nav-links{display:flex;gap:30px;align-items:center;}
-  .nav-links a{
-    text-decoration:none;color:var(--ink-text);font-size:.83rem;letter-spacing:.04em;
-    font-weight:500;transition:color .2s;position:relative;padding:4px 0;
-  }
-  .nav-links a:hover{color:var(--brass);}
-  .lang-switch{display:flex;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
-  .lang-btn{
-    background:transparent;border:none;cursor:pointer;
-    padding:5px 11px;font-family:"Inter",sans-serif;font-size:.74rem;font-weight:600;
-    letter-spacing:.06em;color:var(--muted);transition:all .2s;
-  }
-  .lang-btn.active{background:var(--ink);color:#fff;}
-  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
-  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;transition:.3s;}
-  .topbar.scrolled .nav-toggle span{background:#f3efe6;}
-
-  /* ---------- Hero ---------- */
-  .hero{
-    position:relative;min-height:100svh;display:flex;align-items:center;
-    background:
-      radial-gradient(110% 80% at 80% 10%, rgba(154,123,79,.16), transparent 60%),
-      linear-gradient(160deg,#0d1828 0%, #13223d 55%, #1a2c4d 100%);
-    color:#f3efe6;overflow:hidden;
-  }
-  .hero::after{
-    content:"";position:absolute;inset:0;
-    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-                     linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-    background-size:64px 64px;mask-image:radial-gradient(120% 90% at 70% 30%,#000,transparent 75%);
-    pointer-events:none;
-  }
-  .hero-inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:120px 28px 80px;width:100%;}
-  .hero-eyebrow{
-    font-size:.74rem;letter-spacing:.34em;text-transform:uppercase;
-    color:var(--brass-light);font-weight:600;margin-bottom:2.2rem;
-    opacity:0;animation:rise .9s .1s forwards;
-  }
-  .hero h1{
-    color:#fff;font-weight:500;letter-spacing:.005em;
-    font-size:clamp(2.5rem,6.4vw,5.1rem);line-height:1.08;max-width:18ch;
-    opacity:0;animation:rise 1s .25s forwards;
-  }
-  .lang-en .hero h1{font-weight:500;}
-  .hero h1 em{font-style:italic;color:var(--brass-light);}
-  .hero .sub{
-    margin-top:2rem;font-size:clamp(1rem,1.6vw,1.2rem);max-width:52ch;
-    color:#cdd5e2;line-height:1.8;font-weight:300;
-    opacity:0;animation:rise 1s .45s forwards;
-  }
-  .hero-meta{
-    margin-top:3.4rem;display:flex;flex-wrap:wrap;gap:42px;
-    opacity:0;animation:rise 1s .65s forwards;
-  }
-  .hero-meta .stat .num{
-    font-family:"Cormorant Garamond",serif;font-size:2.5rem;color:#fff;line-height:1;font-weight:500;
-  }
-  .hero-meta .stat .lbl{
-    display:block;margin-top:.5rem;font-size:.74rem;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--brass-light);
-  }
-  .scroll-cue{
-    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
-    font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:#8a93a5;z-index:2;
-    opacity:0;animation:rise 1s 1s forwards;
-  }
-  @keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-
-  /* ---------- About ---------- */
-  .about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(40px,6vw,84px);align-items:start;}
-  .fact-card{
-    background:var(--ink);color:#e9e6dd;padding:38px 36px;border-top:3px solid var(--brass);
-  }
-  .fact-card h3{color:#fff;font-size:1.1rem;letter-spacing:.04em;margin-bottom:24px;font-family:"Inter",sans-serif;font-weight:600;}
-  .fact-row{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:14px 0;border-top:1px solid rgba(255,255,255,.1);}
-  .fact-row:first-of-type{border-top:none;}
-  .fact-row dt{color:var(--brass-light);font-size:.82rem;letter-spacing:.04em;font-weight:500;}
-  .fact-row dd{margin:0;color:#dfe3ea;font-size:.92rem;}
-  .about-copy p{margin:0 0 1.3rem;color:#39424f;font-size:1.04rem;line-height:1.8;}
-  .about-copy p:first-of-type{font-size:1.18rem;color:var(--ink);font-family:"Cormorant Garamond","Noto Serif KR",serif;}
-
-  /* ---------- Team ---------- */
-  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;}
-  .member{background:var(--paper-2);border:1px solid var(--line);padding:38px 36px;position:relative;}
-  .member::before{content:"";position:absolute;top:0;left:0;width:3px;height:64px;background:var(--brass);}
-  .member .role{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:600;}
-  .member .name{font-family:"Cormorant Garamond","Noto Serif KR",serif;font-size:2rem;margin:.5rem 0 1.4rem;color:var(--ink);font-weight:500;}
-  .member h5{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:1.5rem 0 .7rem;font-weight:600;font-family:"Inter",sans-serif;}
-  .member ul{margin:0;padding:0;list-style:none;}
-  .member li{position:relative;padding-left:18px;margin-bottom:.55rem;font-size:.92rem;color:#3a4250;line-height:1.6;}
-  .member li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border:1px solid var(--brass);transform:rotate(45deg);}
-
-  /* ---------- Funds / ledger ---------- */
-  .ledger{position:relative;margin-top:10px;}
-  .fund{
-    display:grid;grid-template-columns:96px 1fr;gap:30px;padding:38px 0;
-    border-top:1px solid rgba(255,255,255,.12);
-  }
-  .band-paper2 .fund{border-top:1px solid var(--line);}
-  .fund:first-child{border-top:none;}
-  .fund .marker{display:flex;flex-direction:column;}
-  .fund .marker .no{
-    font-family:"Cormorant Garamond",serif;font-size:3.2rem;line-height:.9;color:var(--brass-light);font-weight:500;
-  }
-  .band-paper2 .fund .marker .no{color:var(--brass);}
-  .fund .marker .tag{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:8px;}
-  .fund .body h4{font-size:1.32rem;margin-bottom:.4rem;font-family:"Cormorant Garamond","Noto Serif KR",serif;font-weight:600;}
-  .band-ink .fund .body h4{color:#fff;}
-  .fund .meta{font-size:.78rem;letter-spacing:.06em;color:var(--brass);font-weight:600;text-transform:uppercase;margin-bottom:.9rem;}
-  .fund .desc{font-size:.96rem;line-height:1.75;color:#424a57;}
-  .band-ink .fund .desc{color:#bcc4d2;}
-  .fund ul{margin:.8rem 0 0;padding:0;list-style:none;}
-  .fund li{position:relative;padding-left:18px;margin-bottom:.5rem;font-size:.9rem;line-height:1.6;}
-  .band-ink .fund li{color:#aeb6c4;}
-  .band-paper2 .fund li{color:#4a525f;}
-  .fund li::before{content:"–";position:absolute;left:0;color:var(--brass);}
-  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem;}
-  .pill{font-size:.74rem;letter-spacing:.04em;padding:5px 12px;border:1px solid rgba(255,255,255,.2);color:#cdd5e2;border-radius:2px;}
-  .band-paper2 .pill{border-color:var(--line);color:var(--muted);}
-
-  /* ---------- Stats strip ---------- */
-  .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:64px;}
-  .stat-cell{background:var(--paper-2);padding:30px 26px;}
-  .band-ink .stats-strip{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.1);}
-  .band-ink .stat-cell{background:var(--ink);}
-  .stat-cell .v{font-family:"Cormorant Garamond",serif;font-size:2.5rem;color:var(--ink);font-weight:500;line-height:1;}
-  .band-ink .stat-cell .v{color:#fff;}
-  .stat-cell .k{display:block;margin-top:.6rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);}
-
-  /* ---------- Principal investments ---------- */
-  .pi-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
-  .pi-card{background:var(--paper-2);border:1px solid var(--line);padding:34px 32px;border-top:3px solid var(--brass);}
-  .pi-card .tag{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:600;}
-  .pi-card h4{font-size:1.3rem;margin:.6rem 0 1rem;font-family:"Cormorant Garamond","Noto Serif KR",serif;font-weight:600;}
-  .pi-card p{margin:0;font-size:.95rem;color:#434b58;line-height:1.7;}
-  .pi-card .status{margin-top:1.2rem;font-size:.78rem;letter-spacing:.06em;color:var(--ink);font-weight:600;}
-
-  /* ---------- Strategy pillars ---------- */
-  .pillars{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);}
-  .pillar{background:var(--ink);padding:42px 40px;position:relative;}
-  .pillar .pno{font-family:"Cormorant Garamond",serif;font-size:1.05rem;color:var(--brass-light);letter-spacing:.1em;}
-  .pillar h4{color:#fff;font-size:1.32rem;margin:.4rem 0 1.2rem;font-family:"Cormorant Garamond","Noto Serif KR",serif;font-weight:600;}
-  .pillar ul{margin:0;padding:0;list-style:none;}
-  .pillar li{position:relative;padding-left:18px;margin-bottom:.7rem;font-size:.93rem;color:#bcc4d2;line-height:1.65;}
-  .pillar li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--brass);transform:rotate(45deg);}
-
-  /* ---------- Process ---------- */
-  .phase-label{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:600;margin:48px 0 22px;display:flex;align-items:center;gap:14px;}
-  .phase-label::after{content:"";flex:1;height:1px;background:var(--line);}
-  .steps{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-  .step{background:var(--paper-2);border:1px solid var(--line);padding:32px 30px;display:grid;grid-template-columns:54px 1fr;gap:22px;}
-  .step .sno{font-family:"Cormorant Garamond",serif;font-size:2.6rem;color:var(--brass);line-height:.8;font-weight:500;}
-  .step h4{font-size:1.12rem;margin-bottom:.8rem;color:var(--ink);font-family:"Inter","Noto Sans KR",sans-serif;font-weight:600;}
-  .step ul{margin:0;padding:0;list-style:none;}
-  .step li{position:relative;padding-left:16px;margin-bottom:.5rem;font-size:.89rem;color:#454d5a;line-height:1.6;}
-  .step li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;background:var(--brass);border-radius:50%;}
-
-  /* ---------- Pipeline ---------- */
-  .pipe-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
-  .pipe-col h3{font-size:1.4rem;margin-bottom:6px;color:#fff;font-family:"Cormorant Garamond","Noto Serif KR",serif;font-weight:600;}
-  .pipe-col .ck{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-light);margin-bottom:26px;display:block;}
-  .pipe-item{padding:22px 0;border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:1fr auto;gap:18px;align-items:start;}
-  .pipe-item:first-of-type{border-top:none;}
-  .pipe-item p{margin:0;font-size:.95rem;color:#c4ccd8;line-height:1.6;}
-  .pipe-item .amt{font-family:"Cormorant Garamond",serif;font-size:1.3rem;color:var(--brass-light);white-space:nowrap;}
-
-  /* ---------- Case study ---------- */
-  .case-head{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:54px;}
-  .case-quote{font-family:"Cormorant Garamond","Noto Serif KR",serif;font-size:1.5rem;line-height:1.5;color:var(--ink);font-style:italic;}
-
-  /* ---------- Contact / footer ---------- */
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
-  .contact-grid h2{margin-bottom:20px;}
-  .contact-info dt{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-light);margin-top:22px;}
-  .contact-info dd{margin:.3rem 0 0;font-size:1.04rem;color:#e9e6dd;}
-  footer .foot-bottom{
-    border-top:1px solid rgba(255,255,255,.12);margin-top:64px;padding-top:30px;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
-    font-size:.78rem;color:#8b93a3;letter-spacing:.04em;
-  }
-  .foot-logo{font-family:"Cormorant Garamond",serif;font-size:1.2rem;letter-spacing:.16em;color:#fff;}
-
-  /* ---------- Reveal animation ---------- */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease;}
-  .reveal.in{opacity:1;transform:none;}
-
-  /* ---------- Responsive ---------- */
-  @media(max-width:880px){
-    .nav-links{
-      position:fixed;top:0;right:0;height:100svh;width:min(78vw,320px);
-      background:var(--ink-2);flex-direction:column;justify-content:center;gap:30px;
-      transform:translateX(100%);transition:transform .35s ease;padding:40px;z-index:40;
-    }
-    .nav-links.open{transform:translateX(0);}
-    .nav-links a{color:#f3efe6;font-size:1.05rem;}
-    .nav-toggle{display:block;z-index:45;}
-    .about-grid,.team-grid,.pillars,.steps,.pi-grid,.pipe-grid,.case-head,.contact-grid,.stats-strip{grid-template-columns:1fr;}
-    .stats-strip{grid-template-columns:1fr 1fr;}
-    .fund{grid-template-columns:64px 1fr;gap:20px;}
-    .fund .marker .no{font-size:2.4rem;}
-  }
-  @media(max-width:520px){
-    .stats-strip{grid-template-columns:1fr;}
-    .hero-meta{gap:28px;}
-    .step{grid-template-columns:1fr;}
-  }
-  @media(prefers-reduced-motion:reduce){
-    *{animation:none !important;transition:none !important;}
-    .reveal{opacity:1;transform:none;}
-    html{scroll-behavior:auto;}
-  }
-</style>
+<link rel="stylesheet" href="./static/style.css">
+<script src="./static/script.js" defer></script>
 </head>
 <body class="lang-ko">
 
 <!-- ================= TOP BAR ================= -->
 <header class="topbar" id="topbar">
   <div class="topbar-inner">
-    <a href="#top" class="logo">
+    <a href="index.html" class="logo">
       <span class="logo-mark">GIANT PARTNERS</span>
       <span class="logo-sub">Private Equity</span>
     </a>
     <nav class="nav-links" id="navLinks">
-      <a href="#about"><span class="ko">소개</span><span class="en">About</span></a>
-      <a href="#team"><span class="ko">팀</span><span class="en">Team</span></a>
-      <a href="#funds"><span class="ko">투자 실적</span><span class="en">Track Record</span></a>
-      <a href="#strategy"><span class="ko">투자 전략</span><span class="en">Strategy</span></a>
-      <a href="#pipeline"><span class="ko">진행 계획</span><span class="en">Pipeline</span></a>
-      <a href="#contact"><span class="ko">연락처</span><span class="en">Contact</span></a>
+      <a class="active" href="index.html"><span class="ko">홈</span><span class="en">Home</span></a>
+      <a href="views/team.html"><span class="ko">팀</span><span class="en">Team</span></a>
+      <a href="views/track-record.html"><span class="ko">투자 실적</span><span class="en">Track Record</span></a>
+      <a href="views/strategy.html"><span class="ko">투자 전략</span><span class="en">Strategy</span></a>
+      <a href="views/pipeline.html"><span class="ko">진행 계획</span><span class="en">Pipeline</span></a>
+      <a href="views/contact.html"><span class="ko">연락처</span><span class="en">Contact</span></a>
     </nav>
     <div style="display:flex;align-items:center;gap:16px;">
       <div class="lang-switch">
@@ -364,8 +51,8 @@
       <span class="en">A team of corporate-finance and M&amp;A specialists partnering with Korea's middle-market companies to drive overseas expansion and lasting value creation.</span>
     </p>
     <div class="hero-meta">
-      <div class="stat"><span class="num">₩130B</span><span class="lbl"><span class="ko">운영 AUM</span><span class="en">AUM under management</span></span></div>
-      <div class="stat"><span class="num">₩150B</span><span class="lbl"><span class="ko">누적 운용</span><span class="en">Cumulative capital</span></span></div>
+      <div class="stat"><span class="num"><span class="ko">1,300억원</span><span class="en">₩130B</span></span><span class="lbl"><span class="ko">운영 AUM</span><span class="en">AUM under management</span></span></div>
+      <div class="stat"><span class="num"><span class="ko">1,500억원</span><span class="en">₩150B</span></span><span class="lbl"><span class="ko">누적 운용</span><span class="en">Cumulative capital</span></span></div>
       <div class="stat"><span class="num">2019</span><span class="lbl"><span class="ko">설립</span><span class="en">Established</span></span></div>
     </div>
   </div>
@@ -398,426 +85,51 @@
           <div class="fact-row"><dt><span class="ko">대표이사</span><span class="en">CEO</span></dt><dd><span class="ko">김재범</span><span class="en">Jaebeom Kim</span></dd></div>
           <div class="fact-row"><dt><span class="ko">설립일</span><span class="en">Established</span></dt><dd><span class="ko">2019년 4월 29일</span><span class="en">April 29, 2019</span></dd></div>
           <div class="fact-row"><dt><span class="ko">본사</span><span class="en">Head Office</span></dt><dd><span class="ko">서울 용산구 서빙고로 31, 302호 (시티파크 2단지)</span><span class="en">Unit 302, 31 Seobinggo-ro, Yongsan-gu, Seoul (City Park II)</span></dd></div>
-          <div class="fact-row"><dt><span class="ko">재무현황</span><span class="en">Financials</span></dt><dd><span class="ko">자산 ₩830M · 부채 ₩460M (CB ₩250M) · 자기자본 ₩370M (2024년 말 기준)</span><span class="en">Assets ₩830M · Liabilities ₩460M (incl. ₩250M CB) · Equity ₩370M (as of YE 2024)</span></dd></div>
+          <div class="fact-row"><dt><span class="ko">재무현황</span><span class="en">Financials</span></dt><dd><span class="ko">자산 8.3억원 · 부채 4.6억원 (CB 2.5억원) · 자기자본 3.7억원 (2024년 말 기준)</span><span class="en">Assets ₩830M · Liabilities ₩460M (incl. ₩250M CB) · Equity ₩370M (as of YE 2024)</span></dd></div>
         </dl>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= TEAM ================= -->
-<section id="team">
+<!-- ================= NEWS ================= -->
+<section id="news">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow"><span class="ko">02 — 팀</span><span class="en">02 — Team</span></span>
+      <span class="eyebrow"><span class="ko">뉴스</span><span class="en">In the News</span></span>
       <div class="divider"></div>
-      <h2 class="section-title"><span class="ko">투자은행과 회계의 경험을 더하다</span><span class="en">Investment banking meets deal accounting</span></h2>
+      <h2 class="section-title"><span class="ko">언론 속 자이언트 파트너스</span><span class="en">Giant Partners in the press</span></h2>
     </div>
-    <div class="team-grid">
-      <!-- Member 1 -->
-      <div class="member reveal">
-        <span class="role"><span class="ko">대표이사</span><span class="en">CEO</span></span>
-        <div class="name"><span class="ko">김 재 범</span><span class="en">Jaebeom Kim</span></div>
-        <h5><span class="ko">학력 · 자격</span><span class="en">Education &amp; Qualifications</span></h5>
-        <ul>
-          <li><span class="ko">미국 컬럼비아대학교 MBA</span><span class="en">MBA, Columbia University (USA)</span></li>
-          <li><span class="ko">서울대학교 농경제학사</span><span class="en">B.A. Agricultural Economics, Seoul National University</span></li>
-          <li><span class="ko">前 KTB투자증권 이사대우 · 前 솔로몬투자증권 부장</span><span class="en">Former Director, KTB Investment &amp; Securities · Former Head of Division, Solomon Investment &amp; Securities</span></li>
-        </ul>
-        <h5><span class="ko">주요 경력</span><span class="en">Selected Experience</span></h5>
-        <ul>
-          <li><span class="ko">KGB투자증권 / 한마음저축은행 인수 및 PMI (₩170B / ₩400B)</span><span class="en">Acquisition &amp; PMI of KGB Securities / Hanmaeum Savings Bank (₩170B / ₩400B)</span></li>
-          <li><span class="ko">매각 자문: 아진산업 (₩20B), 소신여객 (₩30B)</span><span class="en">Sell-side advisory: Ajin Industrial (₩20B), Sosin Transit (₩30B)</span></li>
-          <li><span class="ko">BW/CB 발행 주관: 멜파스·신대양제지·메디포스트 (각 ₩20B), 미코 (₩7B), 뉴프라이드 (₩5B), 코미코 중국법인 (₩20B) 등</span><span class="en">Lead-managed BW/CB issuances: Melfas, Shin Dae Yang Paper, Medipost (₩20B each), Mico (₩7B), New Pride (₩5B), Komico China (₩20B) and others</span></li>
-        </ul>
-      </div>
-      <!-- Member 2 -->
-      <div class="member reveal">
-        <span class="role"><span class="ko">부사장</span><span class="en">Vice President</span></span>
-        <div class="name"><span class="ko">손 부 관</span><span class="en">Bugwan Son</span></div>
-        <h5><span class="ko">학력 · 자격</span><span class="en">Education &amp; Qualifications</span></h5>
-        <ul>
-          <li><span class="ko">한국공인회계사 (KICPA)</span><span class="en">Korean Certified Public Accountant (KICPA)</span></li>
-          <li><span class="ko">고려대학교 통계학사</span><span class="en">B.A. Statistics, Korea University</span></li>
-          <li><span class="ko">前 삼일회계법인 · 前 안진회계법인</span><span class="en">Former — Samil PwC · Deloitte Anjin</span></li>
-        </ul>
-        <h5><span class="ko">주요 경력</span><span class="en">Selected Experience</span></h5>
-        <ul>
-          <li><span class="ko">전진중공업 매각 자문</span><span class="en">Sell-side advisory — Jeonjin Heavy Industries</span></li>
-          <li><span class="ko">동양생명 매각 자문</span><span class="en">Sell-side advisory — Tongyang Life Insurance</span></li>
-          <li><span class="ko">재무실사 (FDD) — Carlyle / 유진PE / 한국투자파트너스 등</span><span class="en">Financial due diligence (FDD) — Carlyle / Eugene PE / Korea Investment Partners and others</span></li>
-          <li><span class="ko">한라시멘트 매수 자문</span><span class="en">Buy-side advisory — Halla Cement</span></li>
-        </ul>
-      </div>
+    <div class="news-grid">
+      <a class="news-card reveal" href="https://v.daum.net/v/qj23Gfpa3e" target="_blank" rel="noopener">
+        <span class="news-source">아시아경제 · Asia Economy</span>
+        <span class="news-date">2023.04.14</span>
+        <h3 class="news-title"><span class="ko">쇼골프, 이지스·자이언트파트너스 컨소시엄 등으로부터 투자 유치 — 기업가치 700억원</span><span class="en">SHOW Golf raises capital from a consortium including IGIS and Giant Partners — valued at ₩70B</span></h3>
+        <span class="news-more"><span class="ko">기사 읽기 →</span><span class="en">Read the article →</span></span>
+      </a>
+      <a class="news-card reveal" href="https://www.mk.co.kr/news/stock/9692551" target="_blank" rel="noopener">
+        <span class="news-source">매일경제 · Maeil Business</span>
+        <span class="news-date">2023.04</span>
+        <h3 class="news-title"><span class="ko">자이언트파트너스 참여 컨소시엄, 쇼골프 투자 — 골프업계 첫 MBO 성공 사례</span><span class="en">Consortium including Giant Partners backs SHOW Golf — the golf sector's first successful MBO</span></h3>
+        <span class="news-more"><span class="ko">기사 읽기 →</span><span class="en">Read the article →</span></span>
+      </a>
+      <a class="news-card reveal" href="https://www.geconomy.co.kr/news/article.html?no=276914" target="_blank" rel="noopener">
+        <span class="news-source">지이코노미 · G.ECONOMY</span>
+        <span class="news-date">2023.04.15</span>
+        <h3 class="news-title"><span class="ko">기업가치 700억 쇼골프, 자이언트파트너스 등 투자 유치 성공 — 2025년 말 IPO 추진</span><span class="en">SHOW Golf, valued at ₩70B, secures backing from Giant Partners and others — IPO targeted for late 2025</span></h3>
+        <span class="news-more"><span class="ko">기사 읽기 →</span><span class="en">Read the article →</span></span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ================= FUNDS / TRACK RECORD ================= -->
-<section id="funds" class="band-ink">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow" style="color:var(--brass-light)"><span class="ko">03 — 투자 실적</span><span class="en">03 — Track Record</span></span>
-      <div class="divider"></div>
-      <h2 class="section-title"><span class="ko">펀드 투자 포트폴리오</span><span class="en">Fund Investment Portfolio</span></h2>
-      <p class="lead" style="margin-top:1.4rem;"><span class="ko">2019년 첫 펀드 결성 이후 경영참여형 투자와 Growth Capital을 통해 네 개의 펀드를 운용해 왔습니다.</span><span class="en">Since closing our first fund in 2019, we have managed four funds across control and growth-capital strategies.</span></p>
-    </div>
-
-    <div class="stats-strip reveal">
-      <div class="stat-cell"><span class="v">4</span><span class="k"><span class="ko">운용 펀드</span><span class="en">Funds managed</span></span></div>
-      <div class="stat-cell"><span class="v">₩130B</span><span class="k"><span class="ko">운영 AUM</span><span class="en">AUM</span></span></div>
-      <div class="stat-cell"><span class="v">117%</span><span class="k"><span class="ko">1호 후순위 IRR</span><span class="en">Fund I sub. IRR</span></span></div>
-      <div class="stat-cell"><span class="v">26</span><span class="k"><span class="ko">수출 국가 (SJ Core)</span><span class="en">Export markets</span></span></div>
-    </div>
-
-    <div class="ledger">
-      <!-- Fund I -->
-      <div class="fund reveal">
-        <div class="marker"><span class="no">I</span><span class="tag"><span class="ko">제1호 펀드</span><span class="en">Fund I</span></span></div>
-        <div class="body">
-          <h4>SJ Core</h4>
-          <div class="meta"><span class="ko">100% 인수 후 매각 완료 · 2019–2020</span><span class="en">Full buyout &amp; realized exit · 2019–2020</span></div>
-          <p class="desc">
-            <span class="ko">2019년 12월 J&amp;Partners와 ₩14.0B 규모 펀드를 결성하여 SJ Core 지분 100%를 인수하고, 2020년 12월 배당금 포함 ₩24.0B에 매각했습니다. 미국 H마트 한국 떡볶이 점유율 1위 기업으로 유럽·동남아 등 26개국에 수출합니다.</span>
-            <span class="en">Formed a ₩14.0B fund with J&amp;Partners in December 2019 to acquire 100% of SJ Core, and exited in December 2020 for ₩24.0B including dividends. SJ Core is the No.1 Korean tteokbokki brand at H Mart in the U.S., exporting to 26 countries across Europe and Southeast Asia.</span>
-          </p>
-          <div class="pill-row">
-            <span class="pill"><span class="ko">중순위 IRR 89.22%</span><span class="en">Mezzanine IRR 89.22%</span></span>
-            <span class="pill"><span class="ko">후순위 IRR 117.21%</span><span class="en">Subordinate IRR 117.21%</span></span>
-          </div>
-        </div>
-      </div>
-      <!-- Fund II -->
-      <div class="fund reveal">
-        <div class="marker"><span class="no">II</span><span class="tag"><span class="ko">제2호 펀드</span><span class="en">Fund II</span></span></div>
-        <div class="body">
-          <h4>NextOn</h4>
-          <div class="meta"><span class="ko">스마트 팩토리 파밍 · 2021–2024</span><span class="en">Smart factory farming · 2021–2024</span></div>
-          <p class="desc"><span class="ko">세계 1위 수직농장(Smart Factory Farming) 기술을 보유한 넥스트온에 단계적으로 투자했습니다.</span><span class="en">Staged investment into NextOn, holder of world-leading smart vertical-farming technology.</span></p>
-          <ul>
-            <li><span class="ko">2021.08 — 이베스트투자증권과 ₩1.2B 신기술사업자 투자조합 결성 (1차)</span><span class="en">Aug 2021 — ₩1.2B new-technology investment partnership with eBest (Tranche 1)</span></li>
-            <li><span class="ko">2023.07 — 넥스트온 아시아에 USD 2.5M 투자 (YG인베스트먼트와 신기사 조합 결성)</span><span class="en">Jul 2023 — USD 2.5M into NextOn Asia (partnership formed with YG Investment)</span></li>
-            <li><span class="ko">2024.02 — 이베스트투자증권과 ₩1.2B 신기술사업자 투자조합 결성 (2차)</span><span class="en">Feb 2024 — ₩1.2B new-technology investment partnership with eBest (Tranche 2)</span></li>
-          </ul>
-        </div>
-      </div>
-      <!-- Fund III -->
-      <div class="fund reveal">
-        <div class="marker"><span class="no">III</span><span class="tag"><span class="ko">제3호 펀드</span><span class="en">Fund III</span></span></div>
-        <div class="body">
-          <h4><span class="ko">쇼골프 (SHOW Golf)</span><span class="en">SHOW Golf</span></h4>
-          <div class="meta"><span class="ko">골프 플랫폼 · ₩13.1B 투자 · 2023~</span><span class="en">Golf platform · ₩13.1B invested · 2023–</span></div>
-          <p class="desc">
-            <span class="ko">국내 1위 오프라인 실외 연습장 운영사이자 모바일 골프 부킹 시스템 운영회사인 쇼골프에 ₩13.1B을 투자했습니다. 이베스트증권·이지스PE와 신기술사업자 투자조합을 결성해 2023년 4월 14일 투자를 완료했으며, 대신PE(₩10B)·신한PE(₩5B)와 공동 투자해 총 ₩27.0B 규모입니다.</span>
-            <span class="en">Invested ₩13.1B into SHOW Golf — Korea's No.1 outdoor driving-range operator and mobile golf-booking platform. A new-technology investment partnership was formed with eBest and IGIS PE, closing on April 14, 2023, co-invested with Daishin PE (₩10B) and Shinhan PE (₩5B) for a total of ₩27.0B.</span>
-          </p>
-          <ul>
-            <li><span class="ko">100만 명 이상의 골프 부킹 Active User 확보, 실외 연습장 운영</span><span class="en">Over 1 million active golf-booking users; operates outdoor driving ranges</span></li>
-            <li><span class="ko">영업이익률 30% 이상, 대규모 오프라인 골프 플랫폼 운영 노하우 특화</span><span class="en">Operating margin above 30%; specialized in large-scale offline golf platform operations</span></li>
-            <li><span class="ko">스윙 시뮬레이터(플라이트스코프) 연동 데이터·동영상 서비스, 쇼골프 아카데미 인수로 레슨 사업 협업</span><span class="en">Data &amp; video services via FlightScope swing simulators; lesson business through the SHOW Golf Academy acquisition</span></li>
-            <li><span class="ko">2024.12 일본 사츠마 골프장 인수 (₩18B) · 2025.11 일본 구마모토 나카미즈 골프장 인수 (₩20B)</span><span class="en">Dec 2024 — Satsuma Golf Course, Japan (₩18B) · Nov 2025 — Nakamizu Golf Course, Kumamoto, Japan (₩20B)</span></li>
-          </ul>
-        </div>
-      </div>
-      <!-- Fund IV -->
-      <div class="fund reveal">
-        <div class="marker"><span class="no">IV</span><span class="tag"><span class="ko">제4호 펀드</span><span class="en">Fund IV</span></span></div>
-        <div class="body">
-          <h4><span class="ko">에코솔루션 (매립장)</span><span class="en">Eco Solution (Landfill)</span></h4>
-          <div class="meta"><span class="ko">환경 인프라 · ₩110B · 2024~</span><span class="en">Environmental infrastructure · ₩110B · 2024–</span></div>
-          <p class="desc">
-            <span class="ko">스틱인베스트먼트 크레딧본부와 함께 충남 서산 소재 매립장 운영사 에코솔루션의 지분 49%를 ₩110B에 인수했습니다. 자이언트 PE가 딜 소싱과 구조화, 계약금 지급을 담당하고 스틱이 자금을 조달하는 구조로, 전체 수익의 30%를 자이언트 PE가 확보합니다.</span>
-            <span class="en">Together with STIC Investments' Credit division, acquired a 49% stake in Eco Solution — a landfill operator in Seosan, Chungnam — for ₩110B. Giant PE led deal sourcing, structuring and the down payment while STIC provided financing, with Giant PE securing 30% of total returns.</span>
-          </p>
-          <div class="pill-row">
-            <span class="pill"><span class="ko">계약상 수익 배분 구조 (CoGP 대체)</span><span class="en">Contractual profit-share (in lieu of Co-GP)</span></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PRINCIPAL INVESTMENTS ================= -->
-<section id="principal" class="band-paper2">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="ko">04 — 자기자본 투자</span><span class="en">04 — Principal Investments</span></span>
-      <div class="divider"></div>
-      <h2 class="section-title"><span class="ko">자기자본으로도 함께 위험을 집니다</span><span class="en">Investing our own balance sheet</span></h2>
-    </div>
-    <div class="pi-grid">
-      <div class="pi-card reveal">
-        <span class="tag"><span class="ko">부동산 · 엑시트 완료 (2024)</span><span class="en">Real estate · Exited (2024)</span></span>
-        <h4><span class="ko">동탄 부동산 프로젝트</span><span class="en">Dongtan Real-Estate Project</span></h4>
-        <p><span class="ko">사업시행자 HTH에 에쿼티로 투자한 프로젝트로, 분양 매출 ₩68.0B을 기록했습니다. 2022년 1월 분양 개시 후 5개월 만에 90% 분양을 완료했으며, 예상 투자 IRR은 20% 수준입니다.</span><span class="en">An equity investment into developer HTH that generated ₩68.0B in pre-sale revenue. Reached 90% of units sold within five months of launch in January 2022, with an expected investment IRR of around 20%.</span></p>
-        <div class="status"><span class="ko">상태 — 엑시트 완료</span><span class="en">Status — Realized</span></div>
-      </div>
-      <div class="pi-card reveal">
-        <span class="tag"><span class="ko">핀테크 · 노르웨이</span><span class="en">Fintech · Norway</span></span>
-        <h4>Neonomics</h4>
-        <p><span class="ko">노르웨이 핀테크 기업 Neonomics에 에쿼티로 투자했습니다. 부상하는 북유럽 시장에서 B2B API 분야의 선도 주자로, 차별적인 기술 경쟁력을 바탕으로 탄탄한 고객군을 확보하고 있습니다. 2022년 ₩10B~₩20B 규모 펀딩 후 2024년 말 매각을 계획했습니다.</span><span class="en">An equity investment into Neonomics, a Norwegian fintech and a leader in the B2B API space across the fast-growing Nordic market, with a strong client base built on differentiated technology. Following a ₩10B–₩20B round in 2022, an exit was targeted for late 2024.</span></p>
-        <div class="status"><span class="ko">분야 — B2B 오픈뱅킹 API</span><span class="en">Sector — B2B open-banking API</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= STRATEGY: PILLARS ================= -->
-<section id="strategy" class="band-ink">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow" style="color:var(--brass-light)"><span class="ko">05 — 투자 전략</span><span class="en">05 — Investment Strategy</span></span>
-      <div class="divider"></div>
-      <h2 class="section-title"><span class="ko">국내의 강점을 세계 무대로</span><span class="en">From local strength to global scale</span></h2>
-      <p class="lead" style="margin-top:1.4rem;"><span class="ko">국내 대상기업의 글로벌 경쟁력을 평가하고, 투자 후 해외법인 설립과 해외 M&A를 통해 실질적인 해외 성과를 만드는 파트너가 되고자 합니다.</span><span class="en">We assess the global potential of Korean companies, then act as a hands-on partner to deliver real overseas results — through new foreign entities and cross-border M&amp;A.</span></p>
-    </div>
-    <div class="pillars reveal">
-      <div class="pillar">
-        <span class="pno">01</span>
-        <h4><span class="ko">미들마켓 기업</span><span class="en">Middle-Market Enterprises</span></h4>
-        <ul>
-          <li><span class="ko">국내 중소·중견기업 투자 및 SI와의 타깃사 경영권 공동인수 기회 검토</span><span class="en">Investing in Korean middle-market companies and exploring joint control acquisitions with strategic partners</span></li>
-          <li><span class="ko">폭넓은 스펙트럼의 가치증대 기회를 통해 기업가치 상승의 높은 레버리지 효과 실현</span><span class="en">Pursuing a broad spectrum of value-creation levers to drive high upside in enterprise value</span></li>
-        </ul>
-      </div>
-      <div class="pillar">
-        <span class="pno">02</span>
-        <h4><span class="ko">기회추구형 전략</span><span class="en">Opportunistic Strategy</span></h4>
-        <ul>
-          <li><span class="ko">기술력·브랜드 등 글로벌 경쟁의 차별성 집중 검토 (북미·일본 중심)</span><span class="en">Focusing on globally differentiated technology and brands (centered on North America and Japan)</span></li>
-          <li><span class="ko">해외 진출 네트워크가 없는 기업에는 법인 설립·M&A 등 적극적 진출 전략 수립</span><span class="en">For companies without overseas networks, building active entry strategies via new entities and M&amp;A</span></li>
-        </ul>
-      </div>
-      <div class="pillar">
-        <span class="pno">03</span>
-        <h4><span class="ko">바이아웃 &amp; 그로스</span><span class="en">Buyout &amp; Growth Capital</span></h4>
-        <ul>
-          <li><span class="ko">주요 투자구조는 Buyout 및 SI와의 경영권 인수이며, Growth Equity·Mezzanine 구조도 검토</span><span class="en">Core structures are buyouts and strategic-partner control deals, alongside growth-equity and mezzanine</span></li>
-          <li><span class="ko">공동투자, 해외사업 확대, 재무 안정화, 신규사업 진출 등 다양한 콘셉트의 투자 역량 보유</span><span class="en">Capability across co-investment, overseas expansion, balance-sheet stabilization and new-business entry</span></li>
-        </ul>
-      </div>
-      <div class="pillar">
-        <span class="pno">04</span>
-        <h4><span class="ko">글로벌 PMI 전략</span><span class="en">Global PMI Strategy</span></h4>
-        <ul>
-          <li><span class="ko">"협조적 행동주의" 방식의 투자를 통해 적극적인 가치 개선과 개선방안 모색</span><span class="en">A "collaborative activist" approach to drive active value improvement</span></li>
-          <li><span class="ko">자이언트 PE의 네트워크를 통해 피투자기업의 해외 시장 안착 지원</span><span class="en">Leveraging our network to help portfolio companies establish themselves abroad</span></li>
-          <li><span class="ko">해외 마케팅·진출·사업장 관리 등 실질적인 해외사업 지원 역량 보유</span><span class="en">Hands-on support across overseas marketing, market entry and site management</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= STRATEGY: PROCESS ================= -->
-<section id="process">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="ko">06 — 운용 프로세스</span><span class="en">06 — Investment Process</span></span>
-      <div class="divider"></div>
-      <h2 class="section-title"><span class="ko">투자 · 관리 · 엑시트의 3단계</span><span class="en">A three-phase approach</span></h2>
-      <p class="lead" style="margin-top:1.4rem;"><span class="ko">투자 대상에 대한 독자적 분석을 통해 글로벌 경쟁력 또는 국내 독점적 지위가 확인되는 경우, 다음 단계로 업무를 진행합니다.</span><span class="en">When our independent analysis confirms global competitiveness or a dominant domestic position, we proceed through the following stages.</span></p>
-    </div>
-
-    <div class="phase-label"><span class="ko">단계 1 — 투자</span><span class="en">Phase 1 — Investing</span></div>
-    <div class="steps">
-      <div class="step reveal">
-        <span class="sno">1</span>
-        <div>
-          <h4><span class="ko">투자 대상 검토 및 확정</span><span class="en">Target review &amp; selection</span></h4>
-          <ul>
-            <li><span class="ko">영업이익률·영업현금흐름 — 매출 증가 시 이익률이 함께 오르는 산업, 안정적 현금흐름</span><span class="en">Operating margin &amp; cash flow — sectors where margins rise with revenue, with stable cash generation</span></li>
-            <li><span class="ko">CAPEX — 매출 증가 대비 자본 투하가 적은 기업</span><span class="en">CAPEX — low capital intensity relative to growth</span></li>
-            <li><span class="ko">대표자(오너) — 경력·책임감·도덕성·개방성·리더십</span><span class="en">Founder/owner — track record, accountability, integrity, openness, leadership</span></li>
-            <li><span class="ko">밸류 — 승계·상속·IR 부족 등으로 저평가된 회사</span><span class="en">Valuation — companies underpriced due to succession, inheritance or limited IR</span></li>
-            <li><span class="ko">핵심 경쟁력 — 기술·브랜드·상품·서비스의 국내외 경쟁력 평가</span><span class="en">Core edge — assessing technology, brand, product and service competitiveness at home and abroad</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="step reveal">
-        <span class="sno">2</span>
-        <div>
-          <h4><span class="ko">투자 파트너 검토 (Co-GP / SI)</span><span class="en">Partner review (Co-GP / SI)</span></h4>
-          <ul>
-            <li><span class="ko">피투자기업의 성장에 필요한 경우 Co-GP 또는 SI 투자를 제안</span><span class="en">Proposing Co-GP or strategic-investor participation where it accelerates growth</span></li>
-            <li><span class="ko">투자구조·조건 확정 후 본격적인 펀딩에 착수</span><span class="en">Launching full fundraising once structure and terms are set</span></li>
-            <li><span class="ko">전략적 투자자 우선순위, 재무적 투자자 후순위 구조</span><span class="en">Strategic investors senior, financial investors subordinate</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-label"><span class="ko">단계 2 — 관리 &amp; 엑시트</span><span class="en">Phase 2 — Managing &amp; Exiting</span></div>
-    <div class="steps">
-      <div class="step reveal">
-        <span class="sno">3</span>
-        <div>
-          <h4><span class="ko">투자회사 관리</span><span class="en">Portfolio management</span></h4>
-          <ul>
-            <li><span class="ko">인수 후 1~2년 내 성장에 가장 필요한 부분을 집중 보완 (해외진출·전략 파트너·내부시스템·인력)</span><span class="en">Within the first 1–2 years, concentrating on the highest-impact gaps — overseas entry, partners, systems, talent</span></li>
-            <li><span class="ko">펀드 기간(최대 5년)을 고려해 초기에 집중하고 3년 차 이후 안정적 성장을 유도</span><span class="en">Front-loading effort given the fund's five-year horizon, then guiding steady growth from year three</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="step reveal">
-        <span class="sno">4</span>
-        <div>
-          <h4><span class="ko">투자회사 엑시트</span><span class="en">Exit</span></h4>
-          <ul>
-            <li><span class="ko">상장 자문 — 직상장 주관사 선정, SPAC 합병 매칭·자문, Pre-IPO 투자</span><span class="en">Listing advisory — IPO underwriter selection, SPAC merger matching, Pre-IPO rounds</span></li>
-            <li><span class="ko">매각 자문 — 유니콘·대기업·해외기업·상장사 대상 직접 매각 또는 자문사 선정</span><span class="en">Sale advisory — direct sale to unicorns, conglomerates, overseas buyers or listed firms, or appointing an advisor</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CASE STUDY ================= -->
-<section id="case" class="band-paper2">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="ko">07 — 사례 연구</span><span class="en">07 — Case Study</span></span>
-      <div class="divider"></div>
-      <h2 class="section-title"><span class="ko">넥스트온 — 해외 진출이 필요한 기업</span><span class="en">NextOn — a company built to go global</span></h2>
-    </div>
-    <div class="case-head reveal">
-      <p class="case-quote"><span class="ko">"전 세계 수직농장 중 유일하게 영업이익 흑자를 달성한 운영 절감 기술 — 우리가 함께 세계로 나갈 이유였습니다."</span><span class="en">"The only vertical farm in the world achieving an operating profit — that was our reason to take it global, together."</span></p>
-      <p class="lead"><span class="ko">2021년 투자한 넥스트온은 자이언트 PE의 3단계 전략이 실제로 어떻게 작동하는지 보여줍니다.</span><span class="en">Our 2021 investment in NextOn shows how Giant PE's three-phase strategy works in practice.</span></p>
-    </div>
-
-    <div class="steps">
-      <div class="step reveal">
-        <span class="sno">1</span>
-        <div>
-          <h4><span class="ko">투자 대상 검토 및 확정</span><span class="en">Target review &amp; selection</span></h4>
-          <ul>
-            <li><span class="ko">유망 기술·성장주이면서 재배 원물 생산에서 영업이익 흑자, 낮은 고정비로 규모의 경제 실현</span><span class="en">A growth/tech name already profitable on crop output, with low fixed costs enabling economies of scale</span></li>
-            <li><span class="ko">설비가 비교적 단순해 CAPEX가 적고, 설치 후 10년간 중대보수가 거의 불필요</span><span class="en">Simple facilities mean low CAPEX, with virtually no major maintenance for ten years after installation</span></li>
-            <li><span class="ko">대표자 — 서울반도체 대표 출신 LED 전문가, 글로벌 사업 경험, 해외진출 파트너로 인정</span><span class="en">Founder — an LED expert and former Seoul Semiconductor CEO with global business experience</span></li>
-            <li><span class="ko">밸류 — ₩80B 밸류로 투자, 국내외 동종사 대비 2~3배 이상 저평가</span><span class="en">Valuation — invested at ₩80B, 2–3× undervalued versus domestic and global peers</span></li>
-            <li><span class="ko">핵심 경쟁력 — 전 세계 수직농장 중 유일한 영업흑자 수준의 운영 절감·재배 기술, 오폐수 무배출</span><span class="en">Edge — uniquely profitable operating efficiency and cultivation technology, with zero wastewater discharge</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="step reveal">
-        <span class="sno">2</span>
-        <div>
-          <h4><span class="ko">투자 파트너 검토 (Co-GP / SI)</span><span class="en">Partner review (Co-GP / SI)</span></h4>
-          <ul>
-            <li><span class="ko">설립 기간과 투자자 세제 혜택을 고려해 증권사와 신기술사업자조합으로 구조 확정 (선정 후 설립까지 2주)</span><span class="en">Structured as a new-technology partnership with a securities firm for speed and tax efficiency — two weeks from selection to formation</span></li>
-            <li><span class="ko">아시아·남미에 6만 명을 고용한 글로벌 의류 OEM을 주된 SI로 검토했으나, 최종적으로 기타 투자자로 구성</span><span class="en">A global apparel OEM employing 60,000 across Asia and South America was the lead SI candidate; the round was ultimately filled by other investors</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="step reveal">
-        <span class="sno">3</span>
-        <div>
-          <h4><span class="ko">투자회사 관리</span><span class="en">Portfolio management</span></h4>
-          <ul>
-            <li><span class="ko">저온성 프리미엄 딸기·특수채소·허브류는 싱가포르 중심의 동남아 시장, 99% 순도 CBD 오일 등 바이오 소재는 캐나다 중심의 북미 시장이 적합하다고 판단</span><span class="en">Premium cold-climate strawberries, specialty vegetables and herbs targeted at a Singapore-led Southeast Asia market; 99%-purity CBD oil and bio-materials at a Canada-led North America market</span></li>
-            <li><span class="ko">자이언트가 각 지역 진출을 리드 — 2023년 하반기 넥스트온 아시아 설립, 2024년 하반기 북미 진출 계획</span><span class="en">Giant led each market entry — NextOn Asia established in H2 2023, with North American entry planned for H2 2024</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="step reveal">
-        <span class="sno">4</span>
-        <div>
-          <h4><span class="ko">투자회사 엑시트</span><span class="en">Exit</span></h4>
-          <ul>
-            <li><span class="ko">투자자 유치 및 상장 자문 — 2023년 말 자이언트 PE가 인바이트한 글로벌 4대 PE가 ₩100B 이상 투자를 목표로 검토</span><span class="en">Capital raising &amp; listing advisory — in late 2023, a top-four global PE firm invited by Giant PE evaluated a ₩100B+ investment</span></li>
-            <li><span class="ko">글로벌 전략과 나스닥 상장 구조를 논의 중</span><span class="en">Discussions underway on a global strategy and a NASDAQ listing structure</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PIPELINE ================= -->
-<section id="pipeline" class="band-ink">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow" style="color:var(--brass-light)"><span class="ko">08 — 진행 계획</span><span class="en">08 — Pipeline</span></span>
-      <div class="divider"></div>
-      <h2 class="section-title"><span class="ko">2026년 단기 · 장기 계획</span><span class="en">2026 near- and long-term plans</span></h2>
-      <p class="lead" style="margin-top:1.4rem;"><span class="ko">2026년 1월 기준 진행 중인 프로젝트 펀드와 중장기 전략입니다.</span><span class="en">Active project funds and longer-term strategy, as of January 2026.</span></p>
-    </div>
-    <div class="pipe-grid">
-      <div class="pipe-col reveal">
-        <h3><span class="ko">단기 전략 — 프로젝트 펀드</span><span class="en">Near-term — Project Funds</span></h3>
-        <span class="ck"><span class="ko">진행 중 / 검토 중</span><span class="en">In progress / under review</span></span>
-        <div class="pipe-item"><p><span class="ko">광양 소재 신규 매립장 인수(2차 매립장) — 매각 주관사와 논의 중</span><span class="en">Acquisition of a new landfill in Gwangyang (second landfill) — in discussion with the sell-side advisor</span></p><span class="amt">₩80B</span></div>
-        <div class="pipe-item"><p><span class="ko">쇼골프 연장 — 기존 RCPS 투자자 + 신주 자금 조달, 1월 투자자 태핑 시작 (DS PE와 Co-GP 논의)</span><span class="en">SHOW Golf extension — existing RCPS investors plus new equity; investor tapping began in January (Co-GP talks with DS PE)</span></p><span class="amt">₩60B</span></div>
-        <div class="pipe-item"><p><span class="ko">국내 봉제완구 2위 업체 인수 — SI와 협력해 매도자 측과 가격 협의 중 (DS PE와 Co-GP 논의)</span><span class="en">Acquisition of Korea's No.2 plush-toy maker — negotiating price with the seller alongside a strategic partner (Co-GP talks with DS PE)</span></p><span class="amt">₩40B</span></div>
-        <div class="pipe-item"><p><span class="ko">넥스트온 인도어팜 확대를 위한 전략 펀드 — 2026년 하반기 설립 예정</span><span class="en">Strategic fund to expand NextOn's indoor farming — planned launch in H2 2026</span></p><span class="amt">—</span></div>
-      </div>
-      <div class="pipe-col reveal">
-        <h3><span class="ko">장기 전략 — 싱가포르 GP</span><span class="en">Long-term — Singapore GP</span></h3>
-        <span class="ck"><span class="ko">설립 예정</span><span class="en">Planned</span></span>
-        <div class="pipe-item"><p><span class="ko">해외 진출한 한국 기업에 투자하기 위한 펀드 운용 법인을 싱가포르에 설립할 예정입니다. 2026년 하반기 이후를 목표로 합니다.</span><span class="en">Establishing a fund-management entity in Singapore to invest in Korean companies expanding overseas, targeted for after H2 2026.</span></p><span class="amt">2026 H2+</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CONTACT / FOOTER ================= -->
-<footer id="contact" class="band-ink" style="padding-bottom:48px;">
-  <div class="wrap">
-    <div class="contact-grid">
-      <div class="reveal">
-        <span class="eyebrow" style="color:var(--brass-light)"><span class="ko">연락처</span><span class="en">Contact</span></span>
-        <h2 class="section-title" style="font-size:clamp(1.8rem,3.4vw,2.6rem);"><span class="ko">투자·협업 문의를 환영합니다</span><span class="en">We welcome investment and partnership enquiries</span></h2>
-      </div>
-      <div class="reveal">
-        <dl class="contact-info" style="margin:0;">
-          <dt><span class="ko">회사</span><span class="en">Entity</span></dt>
-          <dd><span class="ko">자이언트파트너스 프라이빗에쿼티㈜</span><span class="en">Giant Partners Private Equity Co., Ltd.</span></dd>
-          <dt><span class="ko">주소</span><span class="en">Address</span></dt>
-          <dd><span class="ko">서울 용산구 서빙고로 31, 302호 (시티파크 2단지)</span><span class="en">Unit 302, 31 Seobinggo-ro, Yongsan-gu, Seoul, Korea</span></dd>
-          <dt><span class="ko">대표이사</span><span class="en">CEO</span></dt>
-          <dd><span class="ko">김재범</span><span class="en">Jaebeom Kim</span></dd>
-        </dl>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span class="foot-logo">GIANT PARTNERS</span>
-      <span>© 2026 Giant Partners Private Equity Co., Ltd. <span class="ko">All rights reserved.</span><span class="en">All rights reserved.</span></span>
-    </div>
+<!-- ================= FOOTER ================= -->
+<footer class="band-ink" style="padding:36px 0;">
+  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center;">
+    <span class="foot-logo">GIANT PARTNERS</span>
+    <span style="font-size:.78rem;color:#8b93a3;letter-spacing:.04em;">© 2026 Giant Partners Private Equity Co., Ltd. <span class="ko">All rights reserved.</span><span class="en">All rights reserved.</span></span>
   </div>
 </footer>
 
-<script>
-  // ---------- Language toggle ----------
-  function setLang(lang){
-    document.body.classList.remove('lang-ko','lang-en');
-    document.body.classList.add('lang-'+lang);
-    document.documentElement.lang = lang;
-    document.querySelectorAll('.lang-btn').forEach(function(b){
-      b.classList.toggle('active', b.dataset.lang===lang);
-    });
-  }
-
-  // ---------- Sticky bar style on scroll ----------
-  var topbar = document.getElementById('topbar');
-  window.addEventListener('scroll', function(){
-    topbar.classList.toggle('scrolled', window.scrollY > 80);
-  });
-
-  // ---------- Mobile menu ----------
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
-  navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
-  });
-
-  // ---------- Scroll reveal ----------
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.12});
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-</script>
 </body>
 </html>
