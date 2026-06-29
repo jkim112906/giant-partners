@@ -1,3 +1,7 @@
+/* Loads Noto Serif (Latin sibling of Noto Serif KR) so the English
+   headings match the Korean. All other fonts load from your HTML <link>. */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap');
+
 :root{
   --ink:#13223d;          /* primary deep navy */
   --ink-2:#0b1525;        /* darkest navy */
@@ -423,10 +427,85 @@ footer.band-ink{border-top:1px solid #e4e7ec;}
 .topbar-inner{padding:22px 28px;}
 
 /* ---------- Nav menu: spaced out, vertically centered ---------- */
-.nav-links a{font-size:1.3rem;}
-.nav-links{gap:40px;align-items:center;}
+.nav-links a{font-size:1.25rem;white-space:nowrap;}
+.nav-links{gap:30px;align-items:center;}
 
 /* ---------- Logo: centered subtitle, balanced sizing ---------- */
 .logo{align-items:center;}
 .logo-mark{font-size:1.6rem;}
 .logo-sub{padding-left:.42em;font-size:.68rem;}
+
+/* ============================================================
+   ENGLISH <-> KOREAN STYLE MATCH
+   Swaps the English display serif from Cormorant Garamond to
+   Noto Serif (the Latin sibling of Noto Serif KR) so both
+   languages share one consistent type style, weight and spacing.
+   Weight 500 matches the Korean headings exactly (same Noto family),
+   so the English no longer reads bold.
+   ============================================================ */
+
+/* English headings -> same Noto serif family + weight as Korean */
+.lang-en h1,
+.lang-en h2,
+.lang-en h3{
+  font-family:"Noto Serif","Noto Serif KR",serif;
+  font-weight:500;
+  letter-spacing:0;
+}
+
+.lang-en .section-title{
+  font-weight:500;
+  letter-spacing:0;
+}
+
+/* Hero headline + its italic accent word */
+.lang-en .hero h1{
+  font-family:"Noto Serif","Noto Serif KR",serif;
+  font-weight:500;
+  letter-spacing:0;
+  line-height:1.08;   /* match the Korean hero's tight leading */
+}
+.lang-en .hero h1 em{
+  font-style:italic;
+  font-weight:500;
+}
+
+/* Every other element that was Cormorant -> Noto Serif */
+.lang-en .hero-meta .stat .num,
+.lang-en .stat-cell .v,
+.lang-en .fund .marker .no,
+.lang-en .fund .body h4,
+.lang-en .step .sno,
+.lang-en .pipe-item .amt,
+.lang-en .pipe-col h3,
+.lang-en .pi-card h4,
+.lang-en .member .name,
+.lang-en .news-title,
+.lang-en .case-quote,
+.lang-en .about-copy p:first-of-type{
+  font-family:"Noto Serif","Noto Serif KR",serif;
+}
+
+/* Neutral, Korean-matching tracking on body/lead text */
+.lang-en .lead,
+.lang-en .hero .sub,
+.lang-en .about-copy p{
+  letter-spacing:0;
+}
+
+/* Logo wordmark: keep the elegant Cormorant Garamond brand mark and
+   force it onto ONE line so the English logo matches the Korean. */
+.logo-mark{
+  font-family:"Cormorant Garamond",serif;
+  white-space:nowrap;
+}
+.foot-logo{
+  font-family:"Cormorant Garamond",serif;
+}
+
+/* English nav links: smaller than the Korean so the longer English
+   words keep the header bar the same height/footprint as the Korean.
+   (Korean glyphs are compact, so 1.25rem fits; English needs less.) */
+.lang-en .nav-links a{
+  font-size:1.02rem;
+}
