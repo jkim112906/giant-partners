@@ -91,7 +91,7 @@ header.topbar{
 .topbar.scrolled .logo-mark,.topbar.scrolled .nav-links a{color:#f3efe6;}
 .topbar.scrolled .logo-sub{color:#f3efe6;}
 .topbar.scrolled .lang-btn{color:#cdd3dd;border-color:rgba(255,255,255,.22);}
-.topbar.scrolled .lang-btn.active{background:var(--brass);color:#fff;border-color:var(--brass);}
+.topbar.scrolled .lang-btn.active{background:#f3efe6;color:var(--ink);border-color:#f3efe6;}
 .topbar-inner{
   max-width:var(--maxw);margin:0 auto;padding:14px 28px;
   display:flex;align-items:center;justify-content:space-between;gap:24px;
