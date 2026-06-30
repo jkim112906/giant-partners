@@ -20,7 +20,7 @@
 }
 
 *{box-sizing:border-box;}
-html{scroll-behavior:smooth;font-size:125%;}
+html{scroll-behavior:smooth;font-size:117%;}
 body{
   margin:0;
   background:var(--paper);
@@ -429,7 +429,7 @@ footer.band-ink{border-top:1px solid #e4e7ec;}
 .topbar-inner{padding:22px 28px;}
 
 /* ---------- Nav menu: spaced out, vertically centered ---------- */
-.nav-links a{font-size:1.25rem;white-space:nowrap;}
+.nav-links a{font-size:1.1rem;white-space:nowrap;}
 .nav-links{gap:30px;align-items:center;}
 
 /* ---------- Logo: centered subtitle, balanced sizing ---------- */
@@ -505,11 +505,10 @@ footer.band-ink{border-top:1px solid #e4e7ec;}
   font-family:"Cormorant Garamond",serif;
 }
 
-/* English nav links: smaller than the Korean so the longer English
-   words keep the header bar the same height/footprint as the Korean.
-   (Korean glyphs are compact, so 1.25rem fits; English needs less.) */
+/* English nav links now share the same size as Korean for a unified,
+   maximized nav that matches the mobile menu. */
 .lang-en .nav-links a{
-  font-size:1.02rem;
+  font-size:1.1rem;
 }
 /* ============================================================
    NO GOLD TEXT
@@ -564,3 +563,23 @@ footer.band-ink{border-top:1px solid #e4e7ec;}
 
 /* Logo subtitle uses the same serif as the wordmark */
 .logo-sub{font-family:"Cormorant Garamond",serif;font-weight:700;}
+/* ============================================================
+   SMALL-SCREEN TOP BAR FIX
+   On phones the "GIANT PARTNERS" wordmark (white-space:nowrap)
+   was wider than the screen, pushing the hamburger button off
+   the right edge so the menu was unreachable. Shrink the logo,
+   tighten tracking, trim padding so the toggle stays on screen.
+   ============================================================ */
+@media(max-width:600px){
+  .topbar-inner{padding:12px 16px;gap:10px;}
+  .logo-mark{font-size:1.02rem;letter-spacing:.06em;}
+  .logo-sub{font-size:.44rem;letter-spacing:.28em;}
+  .lang-switch{flex:0 0 auto;}
+  .lang-btn{padding:5px 8px;font-size:.66rem;}
+  .nav-toggle{flex:0 0 auto;padding:6px 2px;}
+}
+
+/* Mobile slide-in menu matches the desktop nav size (parity). */
+@media(max-width:880px){
+  .nav-links a{font-size:1.1rem;}
+}
