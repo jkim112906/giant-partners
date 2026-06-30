@@ -579,10 +579,24 @@ footer.band-ink{border-top:1px solid #e4e7ec;}
   .nav-toggle{flex:0 0 auto;padding:6px 2px;}
 }
 
-/* Mobile menu: the selected (active) link uses a light accent so it
-   stands out on the dark slide-in overlay. On the light desktop bar
-   the active link stays dark navy (handled above); only the dark
-   mobile overlay needs this brighter color. */
+/* Mobile menu link colors (dark slide-in overlay).
+   The desktop bar is light, so its active=navy / hover=gray colors are
+   correct there. The mobile overlay is dark navy, where those colors
+   vanish. Force every state to a light value so links stay readable —
+   including the tap/hover state, which on touch screens "sticks" after
+   you tap and was turning links dim gray. */
 @media(max-width:880px){
-  .nav-links a.active{color:#c6a878;}
+  .nav-links a{color:#f3efe6;}                 /* normal: cream */
+  .nav-links a.active{color:#c6a878;}          /* selected page: tan accent */
+  .nav-links a:hover,
+  .nav-links a:focus,
+  .nav-links a:active{color:#ffffff;}          /* tapped/hovered: bright white */
+  .nav-links a.active:hover,
+  .nav-links a.active:focus{color:#d8bd92;}    /* selected + tapped: bright tan */
+
+  /* Hamburger lines are dark navy (correct on the closed white bar),
+     but once the menu opens they sit over the dark overlay and vanish.
+     The open menu (.nav-links.open) is an earlier sibling of the button,
+     so brighten the three lines to cream while the menu is open. */
+  .nav-links.open ~ div .nav-toggle span{background:#f3efe6;}
 }
