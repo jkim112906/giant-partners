@@ -1,6 +1,8 @@
 /* Loads Noto Serif (Latin sibling of Noto Serif KR) so the English
    headings match the Korean. All other fonts load from your HTML <link>. */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap');
+/* Bold weight for the logo wordmark (HTML <link> only loads up to 600). */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap');
 
 :root{
   --ink:#13223d;          /* primary deep navy */
@@ -87,7 +89,7 @@ header.topbar{
 }
 .topbar.scrolled{background:rgba(11,21,37,.92);border-color:rgba(255,255,255,.08);}
 .topbar.scrolled .logo-mark,.topbar.scrolled .nav-links a{color:#f3efe6;}
-.topbar.scrolled .logo-sub{color:var(--brass-light);}
+.topbar.scrolled .logo-sub{color:#f3efe6;}
 .topbar.scrolled .lang-btn{color:#cdd3dd;border-color:rgba(255,255,255,.22);}
 .topbar.scrolled .lang-btn.active{background:var(--brass);color:#fff;border-color:var(--brass);}
 .topbar-inner{
@@ -102,7 +104,7 @@ header.topbar{
 }
 .logo-sub{
   font-family:"Inter",sans-serif;font-size:.56rem;letter-spacing:.42em;
-  text-transform:uppercase;color:var(--brass);margin-top:5px;transition:color .3s;
+  text-transform:uppercase;color:var(--ink);margin-top:5px;transition:color .3s;
 }
 .nav-links{display:flex;gap:30px;align-items:center;}
 .nav-links a{
@@ -156,7 +158,7 @@ header.topbar{
   opacity:0;animation:rise 1s .25s forwards;
 }
 .lang-en .hero h1{font-weight:500;}
-.hero h1 em{font-style:italic;color:var(--brass-light);}
+.hero h1 em{font-style:italic;color:inherit;}
 .hero .sub{
   margin-top:2rem;font-size:clamp(1rem,1.6vw,1.2rem);max-width:52ch;
   color:#cdd5e2;line-height:1.8;font-weight:300;
@@ -376,7 +378,7 @@ header.topbar{background:rgba(255,255,255,.9);border-bottom:1px solid #e4e7ec;}
 .hero{background:#ffffff;color:#1a1a1a;}
 .hero::after{display:none;}
 .hero h1{color:#13223d;}
-.hero h1 em{color:#9a7b4f;}
+.hero h1 em{color:#13223d;}
 .hero .sub{color:#333;}
 .hero-meta .stat .num{color:#13223d;}
 .scroll-cue{color:#888;}
@@ -509,3 +511,56 @@ footer.band-ink{border-top:1px solid #e4e7ec;}
 .lang-en .nav-links a{
   font-size:1.02rem;
 }
+/* ============================================================
+   NO GOLD TEXT
+   Gold (brass) is kept ONLY for non-text accents — divider lines,
+   card top-borders, bullet markers, button fills. Every place
+   brass was used as a *font* color is reset here to the site's
+   normal text colors so nothing reads gold:
+     · small uppercase labels  -> --muted (matches sibling labels)
+     · large display numerals  -> --ink   (matches the other big numbers)
+   ============================================================ */
+
+/* small uppercase labels / kickers / meta */
+.eyebrow,
+.hero-eyebrow,
+.hero-meta .stat .lbl,
+.fact-row dt,
+.member .role,
+.fund .meta,
+.stat-cell .k,
+.pi-card .tag,
+.phase-label,
+.pipe-col .ck,
+.contact-info dt,
+.news-source{
+  color:var(--muted);
+}
+
+/* large display numerals / letters */
+.fund .marker .no,
+.band-paper2 .fund .marker .no,
+.pillar .pno,
+.step .sno,
+.pipe-item .amt{
+  color:var(--ink);
+}
+
+/* news "read more" link text */
+.news-more{
+  color:var(--ink);
+}
+
+/* nav: current-page navy; hover shifts to a clearly visible non-gold color */
+.nav-links a{transition:color .2s ease;}
+.nav-links a.active{color:var(--ink);}
+.nav-links a:hover{color:var(--muted);}              /* light bar: near-black -> muted gray */
+.topbar.scrolled .nav-links a.active{color:#ffffff;}
+.topbar.scrolled .nav-links a:hover{color:#c6cdd9;}  /* dark bar: light -> brighter/cooler */
+
+/* Logo: bolder wordmark, smaller "Private Equity" subtitle */
+.logo-mark{font-weight:700;}
+.logo-sub{font-size:.52rem;letter-spacing:.38em;}
+
+/* Logo subtitle uses the same serif as the wordmark */
+.logo-sub{font-family:"Cormorant Garamond",serif;font-weight:700;}
